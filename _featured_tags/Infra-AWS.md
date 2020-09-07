@@ -1,8 +1,8 @@
 ---
 layout: tag-blog
-title: DL
-slug: dl
-category: dev
+title: AWS
+slug: AWS
+category: Infra
 menu: false
 order: 2
 ---

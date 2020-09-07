@@ -1,8 +1,8 @@
 ---
 layout: tag-blog
-title: Statistics & R
-slug: r
-category: dev
+title: Linux
+slug: Linux
+category: Infra
 menu: false
 order: 1
 ---
