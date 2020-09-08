@@ -1,8 +1,8 @@
 ---
 layout: tag-blog
 title: Linux
-slug: Linux
-category: Infra
+slug: linux
+category: infra
 menu: false
 order: 1
 ---

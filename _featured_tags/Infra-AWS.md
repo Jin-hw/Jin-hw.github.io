@@ -1,8 +1,8 @@
 ---
 layout: tag-blog
 title: AWS
-slug: AWS
-category: Infra
+slug: aws
+category: infra
 menu: false
 order: 2
 ---
