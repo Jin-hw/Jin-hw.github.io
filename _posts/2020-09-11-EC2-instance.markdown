@@ -23,7 +23,7 @@ Linux, Ubuntu, Windows 등 각종 운영체제를 지원한다.
 유형 중 메모리 성능이 높은 것은 m, CPU의 성능이 높은 것은 c가 붙어있다.  
   
 ### -Step 3: 인스턴스 세부 정보 구성  
- ![그림1-6](https://jin-hw.github.io/assets/img/aws/2020-09-11/1-6.PNG)
+ ![그림1-6](https://jin-hw.github.io/assets/img/aws/2020-09-11/1-6.png)
 종료 방식: 만든 컴퓨터를 중지할 것인지 종료할 것인지 설정할 수 있다. 중지하면 사용하지 않을 때는 끄고 사용할 때는 켤 수 있어서 요금을 아낄 수 있다.  
   
 ### -Step 4: 스토리지 추가  
@@ -61,11 +61,12 @@ IOPS: 저장장치의 속도를 조정할 수 있다.
 
 # 윈도우에서 생성된 리눅스 서버로 접속하는 방법  
 ---
-XShell6 이용<www.netsarang.co.kr> 가정, 학생 무료  
+[XShell6 이용](https://www.netsarang.co.kr) 가정, 학생 무료  
+  
  ![그림1-14](https://jin-hw.github.io/assets/img/aws/2020-09-11/1-14.PNG)
 생성된 인스턴스에서 오른쪽 마우스 클릭해서 연결 클릭  
   
- ![그림1-20](https://jin-hw.github.io/assets/img/aws/2020-09-11/1-20.PNG)
+ ![그림1-20](https://jin-hw.github.io/assets/img/aws/2020-09-11/1-20.png)
 드래그한 퍼블릭 DNS부분을 복사한다.   
   
  ![그림1-18](https://jin-hw.github.io/assets/img/aws/2020-09-11/1-18.PNG)
