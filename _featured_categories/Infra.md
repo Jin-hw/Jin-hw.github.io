@@ -1,6 +1,6 @@
 ---
 layout: list
-title: Infra
+title: Infrastructure
 slug: infra
 menu: true
 submenu: true
