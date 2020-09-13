@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "[EC2] 웹서버를 통해 배포서버 만들기"
+subtitle:   "EC2 WebServer"
+categories: infra
+tags: aws Web app
+comments: true
+---
