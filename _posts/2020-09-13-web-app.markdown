@@ -6,3 +6,260 @@ categories: infra
 tags: aws Web app
 comments: true
 ---
+
+# 배포서버 구성
+---
+
+PuTTY를 사용해서 자신의 인스턴스에 접속한다.  
+다음의 내용은 CentOS7을 기준으로 작성되었다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-13/1-7.PNG)
+아래 쪽의 Amazon Linux 2 AMI가 아닌 위 쪽의 Amazon AMI 2018.03을 사용해서 따라할 것을 추천한다. 이유는 아래에서 설명할 예정  
+  
+  
+Node.js로 구성된 애플리케이션을 구성하기 위해 Node.js를 서버에 설치  
+```git
+	$curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	$ . ~/.nvm/nvm.sh
+	$ nvm install 10.13.0
+```
+배포할 소스코드가 있는 디렉터리를 만든다.
+```git
+	$ cd /sub  
+	$ sudo mkdir MyPro
+	$ sudo chown ec2-user MyPro
+	$ cd /sub/MyPro
+	$ git clone [소스코드 주소]
+	$ cd [소스코드 디렉토리]
+	$ npm install
+```
+
+배포하기 위해서는 웹서버인 nginx와 웹 애플리케이션 서버인 Phusion Passenger을 설치해야한다.
+```git
+	$ cd /sub/MyPro
+	$ wget http://s3.amazonaws.com/phusion-passenger/releases/passenger-5.3.6.tar.gz
+	$ sudo mkdir /sub/passenger
+	$ sudo chown ec2-user /sub/passenger
+	$ tar -xzvf passenger-5.3.6.tar.gz -C /sub/passenger
+```
+
+루비언어로 이루어진 Phusion Passenger을 사용하기 위해서는 RVM을 다운 받을 필요가 있다.
+[https://rvm.io/rvm/install]( https://rvm.io/rvm/install)에 접속해서 간단히 받을 수 있다.
+ ![그림 1-2](http://jin-hw.github.io/assets/img/aws/2020-09-13/1-6.PNG)
+```git 
+	$ gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+	$ \curl -sSL https://get.rvm.io | bash
+```
+두 가지 코드를 입력하여 RVM을 설치한다.  
+그 후, 
+```git 
+	$ source /home/ec2-user/.rvm/scripts/rvm
+	$ rvm reload
+	$ rvm requirement run
+	$ rvm install 2.4.3
+```
+을 입력하여 설치를 완료한다.  
+
+다음은 Phushion Passenger을 통해 Passenger nginx module을 설치한다.
+```git 
+	$ passenger-install-nginx-module
+```
+을 입력하고 installer의 지시에 따라서 설치를 완료한다.  
+  
+  
+ ![그림 1-3](http://jin-hw.github.io/assets/img/aws/2020-09-13/1-1.PNG)
+굉장히 많은 시간(20~30분 가량)이 걸리므로 다른 일을 하면서 기다리는 것이 좋다….  
+이 부분 때문에 꼬박 하룻동안 7번이나 인스턴스를 새로 생성해서 시도했다.  
+제일 상단에 작성한 Amazon 2 AMI를 사용하면 이 부분에서 설치가 되지 않는 듯하다. 설치가 진행 중에 멈춰서 진전이 없어서 자기 전에 설치를 해놓고 잤는데, 아침에 일어나서도 진행이 하나도 되지 않을 것을 봤을 때는 정말 어떻게 해야 할 지 막막했다.  
+  
+설치를 완료한 후에는 exit를 입력해서 root권한을 종료한다.  
+
+다음은 외부 사용가 배포 애플리케이션에 접속할 수 있게 하기위해 vi 편집기를 사용해서 nginx의 설정을 변경할 필요가 있다
+
+```git
+	$ sudo vi /opt/nginx/conf/nginx.conf
+```
+
+```git
+	http {
+	sever_names_hash_bucket_size 256;
+	passenger_root /sub/passenger/passenger-5.3.6;
+	passenger_ruby /home/ec2-user/.rvm/gems/ruby-2.4.3/wrappers/ruby;
+
+	Server {
+	Listen 80;
+	Server_name IP주소;
+	Root /sub/MyPro/[프로젝트명];
+	passenger_enabled;
+	passenger_app_type node;
+	passenger_startup_file /sub/MyPro/[프로젝트명]/app.js;
+	}
+}
+```
+
+## vi 편집기 간단 명령어
+---
+>입력할 때에는 'i'를 눌러서 입력모드로 바꾼다.  
+>입력이 끝났으면 'ESC'키를 눌러 명령모드로 돌아간다.  
+>저장은 :w  
+>종료는 :q
+>저장 후 종료는 :wq 이다.  
+  
+  
+편집된 파일을 기반으로 nginx 서비스를 실행
+```git
+	$ sudo /opt/nginx/sbin/nginx
+```
+  
+인터넷 브라우저를 켜고 인스턴스의 IP주소를 입력하면 다음과 같은 응답을 확인할 수 있다.  
+ ![그림1-4](http://jin-hw.github.io/assets/img/aws/2020-09-13/1-4.PNG)
+  
+  
+nginx 서비스를 켜고 끄는 명령어는 다음과 같다.
+```git
+	sudo /opt/nginx/sbin/nginx
+	sudo fuser -k 80/tcp
+```
+  
+하지만 복잡하기 떄문에 별도의 명령어를 설정해 줄 수 있다.  
+/etc/init.d의 경로에 스크립트를 추가하다.(init.d는 서비스 스크립트들이 존재하는 경로)
+```git
+	$ cd /etc/init.d
+	$ sudo vi nginx
+```
+  
+vi 편집기를 켜고 다음의 내용을 입력한다.  
+```git
+#!/bin/sh
+#
+# nginx - this script starts and stops the nginx daemin
+#
+# chkconfig:   - 85 15 
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \
+#               proxy and IMAP/POP3 proxy server
+# processname: nginx
+# config:      /opt/nginx/conf/nginx.conf
+# pidfile:     /opt/nginx/logs/nginx.pid
+# modified from http://articles.slicehost.com/2009/2/2/centos-adding-an-nginx-init-script
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+
+nginx="/opt/nginx/sbin/nginx"
+prog=$(basename $nginx)
+
+NGINX_CONF_FILE="/opt/nginx/conf/nginx.conf"
+
+lockfile=/var/lock/subsys/nginx
+
+start() {
+    [ -x $nginx ] || exit 5
+    [ -f $NGINX_CONF_FILE ] || exit 6
+    echo -n $"Starting $prog: "
+    daemon $nginx -c $NGINX_CONF_FILE
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog -QUIT
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+
+restart() {
+    configtest || return $?
+    stop
+    start
+}
+
+reload() {
+    configtest || return $?
+    echo -n $"Reloading $prog: "
+    killproc $nginx -HUP
+    RETVAL=$?
+    echo
+}
+
+force_reload() {
+    restart
+}
+
+configtest() {
+  $nginx -t -c $NGINX_CONF_FILE
+}
+
+rh_status() {
+    status $prog
+}
+
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+
+case "$1" in
+    start)
+        rh_status_q && exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest)
+        $1
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    force-reload)
+        force_reload
+        ;;
+    status)
+        rh_status
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 0
+            ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+        exit 2
+esac
+```
+
+
+
+실행가능한 서비스로 만들기 위해 권한을 변경한다.
+```git
+	$ sudo chmod 755 nginx
+```
+  
+## 자동 시작 서비스 등록
+---
+서버 인스턴스를 켜도 샘플 애플리케이션은 실행되지 않는다. 따라서 서버가 켜지면 애플리케이션도 같이 켜지도록 해 줄 필요가 있다. 만약 애플리케이션이 한 대라면 한대를 켜면 그만이지만 애플리케이션이 많다면 일일히 켜는 것은 불가능하기 때문이다.
+
+```git
+	$ sudo chkconfig --add nginx
+	$ sudo ntsysv
+```
+를 입력하면 다음과 같은 창이 뜬다.  
+ ![그림1-5](http://jin-hw.github.io/assets/img/aws/2020-09-13/1-3.PNG)
+위의 화면에서 nginx을 체크해서 시작 서비스에 등록한다.  
+(체크는 Space 바, 버튼 이동은 Tab을 누르면된다.)  
+
+
+
+
+
+
