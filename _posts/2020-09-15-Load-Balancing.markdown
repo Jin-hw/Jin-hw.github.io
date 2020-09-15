@@ -57,5 +57,5 @@ AWS에서는 로드 밸런서의 기능을 하는 서버를 내부적으로 관�
 좌측 메뉴에서 로드밸런싱 - 로드밸런서를 클릭한 뒤 생성한 exercise-lb를 클릭한다.  
 그리고 DNS 이름을 복사한다.
 
-  ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-15/1-1.PNG)
+  ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-15/1-13.PNG)
 로드밸런서를 통해 애플리케이션이 올바르게 작동한 것을 확인할 수 있다.
