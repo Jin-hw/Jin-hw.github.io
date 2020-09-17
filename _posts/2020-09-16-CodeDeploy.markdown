@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[CodeDeploy] 현재위치 배포 실습"
+title:  "[CodeDeploy] In Place 배포 실습"
 subtitle:   "CodeDeploy in place"
 categories: infra
 tags: aws CodeDeploy
