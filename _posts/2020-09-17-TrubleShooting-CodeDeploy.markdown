@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "CodeDeploy TroubleShooting"
+title:  "[CodeDeploy] TroubleShooting"
 subtitle:   "CodeDeploy"
 categories: infra
 tags: codedeploy
