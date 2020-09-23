@@ -3,7 +3,7 @@ layout: post
 title:  "[Lightsail] Lightsail에서 Amazon Polly를 사용해보자"
 subtitle:   "Polly"
 categories: infra
-tags: AWS Lightsail WordPress Polly
+tags: aws Lightsail WordPress Polly
 comments: true
 ---
 
@@ -12,8 +12,8 @@ comments: true
 
 # Amazon Polly란?
 ---
-Polly의 TTS(텍스트 음성 변환)서비스는 고급 딥 러닝 기술을 사용하여 자연스러운 음성으로 텍스트를 읽어준다. 12개의 언어를 지원하고 남성 및 여성 음성을 다양하게 제공하기 때문에 원하는 음성을 선택해서 사용할 수 있다.  
-또한 TTS 이외에도 NTTS(신경망 텍스트 음성 변환)음성을 제공한다. 신경망을 통한 TTS 기술은  뉴스 내레이션 사용 사례에 맞춤화된 뉴스 진행자의 읽기 스타일과 텔레포니 애플리케이션과 같은 양방향 통신에 적합한 대화식 스타일처럼 두 가지 말하기 스타일을 지원한다.  
+**Polly**의 **TTS(텍스트 음성 변환)서비스**는 고급 딥 러닝 기술을 사용하여 자연스러운 음성으로 텍스트를 읽어준다. 12개의 언어를 지원하고 남성 및 여성 음성을 다양하게 제공하기 때문에 원하는 음성을 선택해서 사용할 수 있다.  
+또한 TTS 이외에도 **NTTS(신경망 텍스트 음성 변환)**를 제공한다. 신경망을 통한 TTS 기술은  뉴스 내레이션 사용 사례에 맞춤화된 뉴스 진행자의 읽기 스타일과 텔레포니 애플리케이션과 같은 양방향 통신에 적합한 대화식 스타일처럼 두 가지 말하기 스타일을 지원한다.  
 
 
 ## Wordpress에 Polly 기능 적용하기
@@ -21,7 +21,7 @@ Polly의 TTS(텍스트 음성 변환)서비스는 고급 딥 러닝 기술을 �
 ### Step 1. AWS for wordPress 플러그인 활성화
 ---
   ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-2.PNG)  
-Wordpress의 관리자 화면으로 들어간다. 좌측 메뉴에서 플러그인을 클릭하고 Polly를 검색해서 'AWS for WordPress'를 찾아서 활성화 버튼을 클릭한다.
+Wordpress의 관리자 화면으로 들어간다. 좌측 메뉴에서 **플러그인**을 클릭하고 Polly를 검색해서 **'AWS for WordPress'**를 찾아서 **활성화** 버튼을 클릭한다.
 
 ### Step 2. 정책 설정하기
 ---
@@ -31,9 +31,113 @@ Wordpress가 접근할 수 있는 권한을 정의하는 정책을 만들 필요
 
 ### Step 3. 시각적 편집기를 통해 권한 설정
 ---
-  ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-3.PNG)  
+  ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-4.PNG)  
 Polly의 권한을 위의 그림과 같이 설정해준다. 
  * 목록 : DescribeVoices
  * 읽기 : SynthesizeSpeech
  * 리소스 : 모든 리소스 허용
+
+  ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-5.PNG)
+S3의 권한을 위의 그림과 같이 설정해준다.  
+ * 목록 : HeadBucket, ListBucket
+ * 읽기 : GetBucketAcl, GetBucketPolicy
+ * 쓰기 : CreateBucket, DeleteObject, PutObject
+ * 권한관리 : PutObjectAcl
+ * 리소스 :  특정 -> 모두 선택 
+
+  ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-6.PNG) 
+Translate의 권한을 위의 그림과 같이 설정해준다.
+ * 읽기 : TranslateText
+ * 리소스 : 모든 리소스
+
+**참고(JSON)**
+```git 
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "polly:SynthesizeSpeech",
+                "s3:HeadBucket",
+                "translate:TranslateText",
+                "polly:DescribeVoices"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:DeleteObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": "arn:aws:s3:::*/*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:ListBucket",
+                "s3:GetBucketAcl",
+                "s3:GetBucketPolicy"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        }
+    ]
+}
+```
+설정을 완료하고 다음으로 넘어간다.  
+
+
+### Step 4. 정책생성
+---
+  ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-7.PNG) 
+위와 같이 정책의 이름과 설명을 지정하고, 요약에서 설정한 권한대로 표기되었는지를 확인하고 정책을 생성한다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-8.PNG)
+생성을 완료하면 위와 같은 글이 보인다.  
+
+
+ 
+### Step 5. IAM 사용자 추가
+---
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-9.PNG)
+IAM 대시보드에서 [사용자]를 클릭한 후 [사용자 추가]를 선택한다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-10.PNG) 
+사용자 이름을 원하는대로 지정해주고, 액세스 유형은 애플리케이션을 통해 AWS 서비스를 사용하기 때문에 [프로그래밍 방식 액세스]를 선택한다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-11.PNG) 
+다음으로 조금 전에 생성한 정책과 연결해주기 위해 [기존 정책 직접 연결]을 클릭하고 생성한 정책의 이름을 검색하고 연결해준다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-12.PNG) 
+검토항목에서 설정들이 제대로 반영되었는지 확인한 후 [사용자 만들기]를 클릭해 사용자를 생성한다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-13.PNG)
+성공했다는 화면이 나타난다.  
+액세스 키 ID와 비밀액세스 키를 다음 단계에서 사용한다.  
+
+
+### Step 6. Wordpress 플러그인 설정
+---
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-14.PNG) 
+Wordpress로 돌아와서 방금 받은 액세스 키 ID와 비밀액세스 키를 사용해 플러그인 로그인을 한다.   
+
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-15.PNG) 
+위의 그림과 같이 자신이 원하는 언어로 설정한다.  
+
+
+### Step 7. Polly를 통한 음성변환 서비스
+---
+이제는 직접 Wordpress에 글을 쓰고 Polly를 사용해서 작성한 글을 읽어보게 해보자.   
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-16.PNG)
+Wordpress 대시보드에서 좌측 메뉴의 글을 클릭한다. 그리고 [새로 추가]를 클릭한다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-17.PNG)
+위와 같이 글을 입력할 수 있는 화면이 나타난다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-18.PNG)
+Polly TTS 서비스를 통해 읽어보게 하고 싶은 글을 입력한다. 작성을 완료한 후 우측 상단의 [공개]라는 버튼을 클릭한다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-19.PNG)
+그려면 우측에 위와 같은 화면이 나온다. 이제 생성된 음성변환 서비스를 확인하기 위해 [글 보기] 버튼을 클릭한다.  
+ ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-22/1-20.PNG)
+위의 그림과 같이 음성 변환 서비스가 적용된 게시물을 확인할 수 있다. 재생 버튼을 클릭하면 제목부터 내용까지 Polly를 통해 음성으로 확인할 수 있다.  
+
 

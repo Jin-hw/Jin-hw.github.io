@@ -3,7 +3,7 @@ layout: post
 title:  "[Lightsail] 홈페이지 만들기(Wordpress) "
 subtitle:   "Lightsail"
 categories: infra
-tags: AWS lightsail wordpress
+tags: aws lightsail wordpress
 comments: true
 ---
   ![그림 1-1](http://jin-hw.github.io/assets/img/aws/2020-09-20/AWS lightsail logo.jpeg)
