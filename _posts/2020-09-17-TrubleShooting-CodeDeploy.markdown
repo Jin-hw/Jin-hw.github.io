@@ -3,7 +3,7 @@ layout: post
 title:  "[CodeDeploy] TroubleShooting"
 subtitle:   "CodeDeploy"
 categories: infra
-tags: codedeploy
+tags: AWS codedeploy
 comments: true
 ---
 

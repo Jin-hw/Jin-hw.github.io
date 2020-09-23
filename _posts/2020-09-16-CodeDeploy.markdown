@@ -3,7 +3,7 @@ layout: post
 title:  "[CodeDeploy] In Place 배포 실습"
 subtitle:   "CodeDeploy in place"
 categories: infra
-tags: aws CodeDeploy
+tags: AWS CodeDeploy
 comments: true
 ---
 
