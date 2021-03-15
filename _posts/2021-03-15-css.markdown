@@ -2,8 +2,8 @@
 layout: post
 title:  "[CSS] CSS 문법 정리"
 subtitle:   "CSS"
-categories: front
-tags: CSS css
+categories: develop
+tags:  front CSS css
 comments: true
 ---
 
