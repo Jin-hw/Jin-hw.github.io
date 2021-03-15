@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "[CSS] CSS 문법 정리"
+subtitle:   "CSS"
+categories: front
+tags: CSS css
+comments: true
+---
+
+# CSS 문법 정리
+- text
+
+
+
+
+## Text
+---
+- text-align: 왼쪽 정렬, 오른쪽 정렬, 가운데 정렬
+- line-height: text의 위 아래 간격을 띄움
+- letter-spacing: 글자 간의 간격을 띄움
