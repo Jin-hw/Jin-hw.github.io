@@ -9,9 +9,10 @@ comments: true
 
 # CSS 문법 정리
 ---
-- Text
-- Filter
-
+- 목차
+    - [Text](#-text)
+    - [Text 테크닉](#-text-테크닉)
+    - [Filter](#-filter)
 
 
 
