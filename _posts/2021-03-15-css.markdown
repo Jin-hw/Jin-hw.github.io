@@ -9,7 +9,8 @@ comments: true
 
 # CSS 문법 정리
 ---
-- text
+- Text
+- Filter
 
 
 
@@ -19,3 +20,60 @@ comments: true
 - text-align: 왼쪽 정렬, 오른쪽 정렬, 가운데 정렬
 - line-height: text의 위 아래 간격을 띄움
 - letter-spacing: 글자 간의 간격을 띄움
+- writing-mode:
+
+    1. horizontal-tb: 블록의 표시 방향은 위에서 아래 입니다. 문장은 가로로 표시됩니다.
+
+    1. vertical-rl: 블록의 표시 방향은 오른쪽에서 왼쪽입니다. 문장은 수직으로 표시됩니다.
+
+    1. vertical-lr: 블록의 표시 방향은 왼쪽에서 오른쪽입니다. 문장은 수직으로 표시됩니다.
+   
+  - text-orientation: upright; 새로로 표기됨
+- white-space: nowrap; 윈도우의 사이즈가 바뀌면 자동으로 text의 줄이 바뀌는 것을 막아줌
+
+### Text 테크닉
+---
+- text-shadow: 글자에 테두리 넣는 법
+  
+    HTML
+    ```
+    <h1>
+     테두리선 만들기
+    </h1>
+    ```
+    CSS
+    ```
+    h1 {
+    text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue,   0 -1px blue;
+    }
+    ```
+- 그림 위에 글자 올리는 방법 (grid 경계선 위에 올리는 법)
+
+    ```
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    ```
+## Filter
+---
+- blur(ex. 50px, 1.5rem): 블러 효과를 적용해서 이미지를 흐리게 만듦, 바깥으로 넘치는 부분은
+
+    HTML
+    ```
+    <div>
+        <img src=""></img>
+    </div>
+    ```
+
+    CSS
+    ```
+    img {
+        filter: blur(5px);
+    }
+
+    div {
+        overflow: hidden;
+    }
+    ```
+    과 같은 방법으로 overflow를 없애 줄 수 있다.
