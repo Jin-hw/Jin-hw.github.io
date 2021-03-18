@@ -12,6 +12,7 @@ comments: true
 - 목차
 - [Text](#-text)
 - [Text 테크닉](#-text-테크닉)
+- [Image](#-image)
 - [Filter](#-filter)
 
 
@@ -56,6 +57,13 @@ comments: true
     left: 50%;
     transform: translate(-50%, -50%);
     ```
+
+## Image
+---
+- background-image: url("https://source.unsplash.com/random/");
+- background-size: cover;
+- background-position: center;
+
 ## Filter
 ---
 - blur(ex. 50px, 1.5rem): 블러 효과를 적용해서 이미지를 흐리게 만듦, 바깥으로 넘치는 부분은
