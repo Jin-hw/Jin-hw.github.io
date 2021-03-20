@@ -64,6 +64,23 @@ comments: true
 - background-size: cover;
 - background-position: center;
 
+## Grid
+---
+- grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 반응형 가로 길이
+
+
+## Grid 테크닉
+---
+- 테두리 겹칩 제거
+```
+    box-shadow: 
+    2px 0 0 0 #888, 
+    0 2px 0 0 #888, 
+    2px 2px 0 0 #888,
+    2px 0 0 0 #888 inset, 
+    0 2px 0 0 #888 inset;
+```
+
 ## Filter
 ---
 - blur(ex. 50px, 1.5rem): 블러 효과를 적용해서 이미지를 흐리게 만듦, 바깥으로 넘치는 부분은
