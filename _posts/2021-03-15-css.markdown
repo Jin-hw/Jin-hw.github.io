@@ -9,13 +9,20 @@ comments: true
 
 # CSS 문법 정리
 ---
-- 목차
-- [Text](#-text)
-- [Text 테크닉](#-text-테크닉)
-- [Image](#-image)
-- [Filter](#-filter)
+- [# CSS 문법 정리](#-css-문법-정리)
+- [## 선택자](#-선택자)
+- [## Text](#-text)
+- [### Text 테크닉](#-text-테크닉)
+- [## Image](#-image)
+- [## Grid](#-grid)
+- [### Grid 테크닉](#-grid-테크닉)
+- [## Filter](#-filter)
 
 
+
+## 선택자
+---
+https://code.tutsplus.com/ko/tutorials/the-30-css-selectors-you-must-memorize--net-16048
 
 ## Text
 ---
@@ -66,20 +73,32 @@ comments: true
 
 ## Grid
 ---
+https://code.tutsplus.com/ko/tutorials/introduction-to-css-grid-layout-with-examples--cms-25392
+
 - grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 반응형 가로 길이
+- grid-area: rowStart/columnStart/rowEnd/columnEnd
+    ```
+        .div1{
+          grid-area: 2/2/3/4;
+        }
+    ```
 
 
-## Grid 테크닉
+### Grid 테크닉
 ---
 - 테두리 겹칩 제거
-```
-    box-shadow: 
-    2px 0 0 0 #888, 
-    0 2px 0 0 #888, 
-    2px 2px 0 0 #888,
-    2px 0 0 0 #888 inset, 
-    0 2px 0 0 #888 inset;
-```
+    ```
+        box-shadow: 
+        2px 0 0 0 #888, 
+        0 2px 0 0 #888, 
+        2px 2px 0 0 #888,
+        2px 0 0 0 #888 inset, 
+        0 2px 0 0 #888 inset;
+    ```
+    or
+    ```
+        border-bottom:0px;
+    ```
 
 ## Filter
 ---
