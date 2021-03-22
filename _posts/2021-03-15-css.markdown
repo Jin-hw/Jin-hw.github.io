@@ -3,7 +3,7 @@ layout: post
 title:  "[CSS] CSS 문법 정리"
 subtitle:   "CSS"
 categories: develop
-tags:  front CSS css
+tags:  front CSS
 comments: true
 ---
 
