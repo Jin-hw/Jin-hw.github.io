@@ -41,7 +41,7 @@ React는 소스코드에 처음부터 HTML을 넣지 않고, HTML에서 HTML을 
 
 따라서,
 
-![그림 1-5](/assets/img/web/2021-03-22/1-5.PNG)
+![그림 1-5](/assets/img/web/2021-03-22/1-5.png)
 
 위 그림과 같이 id를 설정해주어야한다.
 
@@ -55,6 +55,8 @@ npm install prop-types 를 입력해서 설치를 해준다.
 그리고 전달요소에 맞춰서 다음 이미지와 같이 작성한다.
 
 ![그림 1-6](/assets/img/web/2021-03-22/1-6.PNG)
+
+Food.**proptypes** 에서 proptypes 이외의 다른 것을 적으면 react에서 이해할 수 없게 때문에 다른 글자를 적으면 적용되지 않는다.
 
 rating이 number형인지 string형인지 boolean형인지 확인이 가능하게 된다.
 
