@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "[NodeJS] MVC 구조"
+subtitle:   "NodeJS"
+categories: develop
+tags: back node MVC
+comments: true
+---
+
+# MVC란 무엇인가?
+---
+- M: data
+- V: how does the data look
+- C: function that looks for the data
