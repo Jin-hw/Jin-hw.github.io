@@ -17,7 +17,7 @@ comments: true
 ---
 console에 나오는 GET / 200 51.267 ms - 1539와 같은 로그는 모두 morgan 미들웨어에서 나오는 것으로 요청에 대한 정보를 콘솔에 기록해준다.
 
-```
+```javascript
 import margan from "morgan";
 
 app.use(margan('dev'));
@@ -29,7 +29,7 @@ app.use(margan('dev'));
 ## body-parser
 ---
 요청의 본문을 해석해주는 미들워어. 보통 폼 데이터나 AJAX요청의 데이터를 처리하낟.
-```
+```javascript
 import bodyParser from "body-parser";
 
 app.use(bodyParser.json());
@@ -45,7 +45,7 @@ urlencoded 메서드를 보면 { extended: false } 라는 옵션이 들어있습
 ## cookie-parser
 ---
 cookie-parser는 요청에 동봉된 쿠키를 해석해줍니다.
-```
+```javascript
 import cookieParser from "cookie-parser";
 
 app.use(cookieparser());

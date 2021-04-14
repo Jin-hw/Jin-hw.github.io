@@ -26,7 +26,7 @@ npm install core-js@3
 * .babelrc 파일을 만들어주세요
 * .babelrc 파일에 아래 내용을 입력 후 저장해주세요:
   
-```
+```json
     {
         "presets": [
             [

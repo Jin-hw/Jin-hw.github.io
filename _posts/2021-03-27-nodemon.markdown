@@ -15,11 +15,11 @@ comments: true
 ---
 다음 코드를 입력한다.
 
-```
+```javascript
     npm install nodemon -D
 ```
 - package.json 파일에서 
-```
+```javascript
 "scripts": {
     "start": "nodemon --exec babel-node index.js"
   }

@@ -62,4 +62,17 @@ rating이 number형인지 string형인지 boolean형인지 확인이 가능하�
 
 또한, isRequired를 적어주면 요소가 존재하는지 undefine인지 확인할 수 있게 된다.
 
-##
+## Router
+---
+![그림 1-2](/assets/img/web/2021-03-22/1-9.PNG)
+npm install react-router-dom을 설치한다
+```javascript
+<Route path="/">
+    <LandingPage />
+<Route/>
+```
+를 다음과 같이 나타내 줄 수 있다.
+
+```javascript
+<Route exact path="/" component={LandingPage} />
+```

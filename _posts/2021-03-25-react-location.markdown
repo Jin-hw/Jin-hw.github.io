@@ -15,12 +15,12 @@ comments: true
 
 ![그림 1-1](/assets/img/web/troubleshooting/1-3.PNG)
 위의 그림과 같이 
-```
+```javascript
     import { Router } from "react-router-dom";
 ```
 **Router**가 아닌 
 
-```
+```javascript
     import { Route } from "react-router-dom";
 ```
 

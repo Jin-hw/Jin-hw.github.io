@@ -1,0 +1,94 @@
+---
+layout: post
+title:  "[Interactive] 마우스 포인터 움직이기"
+subtitle:   "Interactive"
+categories: develop
+tags: front
+comments: true
+---
+
+# 마우스 포인터 따라다니는 상자
+---
+![그림 1-1](/assets/img/web/2021-03-22/1-7.PNG)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>test</h1>
+    <div class="cursor_item"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>
+```
+```javascript
+window.onload = function() { //window.onload는 화면이 모두 로드된 이후에 실행한다는 의미
+    let h1 = document.getElementsByTagName("h1")[0]; //인덱스가 지정된 이유는 어느 Elements가 지정된 것인지 나타내기 위해
+    let cursor_item = document.getElementsByClassName("cursor_item")[0];
+    window.addEventListener("mousemove", mouseFunc, false);
+    function mouseFunc(e){
+        h1.innerHTML = e.clientX + " " + e.clientY;
+        cursor_item.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)"; //cursor_item의 요소 안에 좌표값을 잆력하는 코드
+        console.log(e.clientX, e.clientY);
+    }
+}
+```
+
+```css
+body {
+  background-color: black;
+}
+
+h1 {
+  color: white;
+}
+
+.cursor_item {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  top: -50px;
+  left: -50px;
+}
+```
+
+
+## window.requestAnimationFrame(loop);
+---
+```javascript
+let cursor_item;
+let x = 0;
+let y = 0;
+let mx = 0;
+let my = 0;
+let speed = 0.02; //스피드에 따라 마우스를 따라가는 속도가 달라짐
+
+window.onload = function() {
+    let h1 = document.getElementsByTagName("h1")[0];
+    cursor_item = document.getElementsByClassName("cursor_item")[0];
+    window.addEventListener("mousemove", mouseFunc, false);
+    function mouseFunc(e){
+        x = e.clientX;
+        y = e.clientY;
+        h1.innerHTML = x + " " + y;
+    }
+    loop();
+}
+
+function loop(){
+    //console.log(x, y);
+    mx += (x-mx) * speed;
+    my += (y-my) * speed;
+    console.log(mx,my);
+    cursor_item.style.transform = "translate(" + mx + "px," + my + "px)";
+    window.requestAnimationFrame(loop);
+}
+```

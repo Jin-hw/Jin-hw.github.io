@@ -24,7 +24,7 @@ views는 템플릿 파일들이 위치한 폴더를 지정하는 것입니다. r
 ### 1) HTML 표현
 ---
 - PUG
-```
+```pug
 doctype html
 html
     head
@@ -32,7 +32,7 @@ html
         link(rel='stylesheet', href='/stylesheets/style.css')
 ```
 - HTML
-```
+```html
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,26 +42,26 @@ html
 </html>
 ```
 - PUG
-```
+```pug
 #login-button
 .post-image
 span#highlight
 p.hidden.full
 ```
 - HTML
-```
+```html
 <div id="login-button"></div>
 <div class="post-image"></div>
 <span id="highlight"></span>
 <p class="hidden full"></p>
 ```
 - PUG
-```
+```pug
 p Welcome to Express
 button(type='submit') 전송
 ```
 - HTML
-```
+```html
 <p>Welcome to Express</p>
 <button type="submit">전송</button>
 ```
@@ -69,21 +69,21 @@ button(type='submit') 전송
 ### 2) 변수
 ---
 HTML과 다르게 자바스크립트 변수를 템플릿에 렌더링 할 수 있다.
-```
+```javascript
 router.get('/', (req, res, next) => 
     res.render('index', {title: "Express"});
 );
 ```
 위와 같이 자바스크립트에서 변수 객체를 전달해주면 PUG에서 전달 받아서 사용할 수 있다.
 - PUG
-```
+```pug
 h1= title
 p Welcome to #{title}
 button(class=title, type='submit') 전송
 input(placeholder=title + ' 연습')
 ```
 - HTML
-```
+```html
 <h1>Express</h1>
 <p>Welcome to Express</p>
 <button class="Express" type="submit">전송<buttom>
@@ -94,13 +94,13 @@ input(placeholder=title + ' 연습')
 ### 3) 반복문
 ---
 - PUG
-```
+```pug
 ul
     each frui, index in ['사과', '배', '오렌지', '바나나', '복숭아']
         li= (index + 1) + '번째 ' + fruit
 ```
 - HTML
-```
+```html
 <ul>
     <li>1번쨰 사과</li>
     <li>2번쨰 배</li>
@@ -112,7 +112,7 @@ ul
 
 ### 4) 조건문
 ---
-```
+```pug
 if isLoggedIn
     div 로그인 되었습니다.
 else
