@@ -6,7 +6,7 @@ categories: develop
 tags: front
 comments: true
 ---
-
+![그림 1-1](/assets/img/web/js.png)
 # 가변 길이 인수 목록(Arguments)
 ---
 argument 변수는 모든 함수에서 사용할 수 있는 지역변수이다. 

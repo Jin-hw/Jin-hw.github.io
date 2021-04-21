@@ -17,6 +17,7 @@ comments: true
 - [## Grid](#-grid)
 - [### Grid 테크닉](#-grid-테크닉)
 - [## Filter](#-filter)
+- [## Position](#-position)
 
 
 
@@ -122,3 +123,10 @@ https://code.tutsplus.com/ko/tutorials/introduction-to-css-grid-layout-with-exam
     }
     ```
     과 같은 방법으로 overflow를 없애 줄 수 있다.
+
+
+## Position
+---
+- position: relative; 처음 시작점에서 움직임, top, bottom, right, left 로 움직일 수 있다.
+- position: absolute; relative의 내부에서 움직임, 만약 부모div에 relative를 선언해주지 않았다면 body 위에서 움직임
+- position: fixed; top, bottom, right, left 로 움직일 수 있다. 다른 것과 다른 레이어에 있게 되어 겹칠 수도 있다.

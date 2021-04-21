@@ -1,0 +1,97 @@
+---
+layout: post
+title:  "[Javascript] JSON"
+subtitle:   "javascript"
+categories: develop
+tags: front
+comments: true
+---
+
+![그림 1-1](/assets/img/web/js.png)
+
+# JSON
+---
+JSON을 사용하면 다른 프로그래밍 언어와 데이터 송수신이 간단해진다. 
+
+웹 어플리케이션에서는 서버와 웹 클라이언트가 데이터를 주고 받을 때 자주 사용한다.
+
+JSON은 자바스크립트 객체를 문자열로 표현하는 데이터 포맷이다. JSON을 사용하면 객체를 직렬화할 수 있다. **직렬화**란 컴퓨터의 메모리 속에 이쓴 개체를 똑같은 객체로 환원할 수 있는 문자열로 변환하는 과정이다.
+
+## 표기 방법
+--------------------------------------------------------
+JSON의 포맷은 자바스크립트의 리터럴 표기법에 기반을 두고 있다.
+
+- 객체 리터럴
+  
+    {name: "Tom", age: 17, marriage: false, data: [2, 5, null]};
+
+- JSON 데이터
+  
+    '{"name":"Tom","age":17, "marriage": false, "data":[2, 5, null]}'
+
+## JSON의 변환과 환원
+--------------------------------
+### 자바스크립트 객체를 JSON 문자열로 변환하기(JSON.stringify)
+--------------------------------
+JSON.stringify 메서드는 인수로 받은 객체를 JSON 문자열로 바꾸어 반환한다.
+```javascript
+    JSON.stringify(value[ , replacer[ , space ]])
+```
+첫번째 인수인 value에는 JSON으로 변환할 객체를 지정합니다. 두번째 인수인 replacer에는 함수 또는 배열을 지정합니다. 두번째 인수로 함수를 지정하면 문자열로 만드는 프로퍼티의 키와 값을 함수의 인수로 받아서 프로퍼티 값을 표현하는 문자열을 반환합니다. 배열을 지정하면 배열의 요소로 객체릐 프로퍼티 이름을 필터링합니다. 세 번째 인수인 space에는 출력하는 문자열을 구분할 때 사용할 공백 문자응 지정합니다. 
+```javascript
+JSON.stringify({});     
+//'{}'
+
+JSON.stringify(3.14)        
+//'3.14'
+
+JSON.stringify("abc")       
+//'"abc"'
+
+JSON.stringify(true)        
+//'true'
+
+JSON.stringify([2, 4, null])        
+//'[2, 4, null]'
+
+JSON.stringify({x:1, y:2})      
+//'{"x":1, "y":2}'
+
+JSON.stringify({2:1, y:2, z:3}, ["x", "z"]);           
+//'{"x":1, "z":3}' 원본 객체의 프로퍼티 중에서 두 번쨰 인수의 배열 요소롸 이름이 같은 프로퍼티만 걸러진다.
+```
+
+### JSON 문자열을 자바스크립트로 환원하기: JSON.parse
+---
+JSON.parse 메서드는 인수로 받은 문자열을 자바스크립트 객체로 환원해서 반환합니다. JSON.parse 메서드의 문법은 다음과 같다.
+
+```javascript
+    JSON.parse(text[, reviver])
+```
+첫 번쨰 인수인 text에는 자바스크립트의 객체로 환원하고자 하는 JSON 문자열을 지정합니다. 두 번째 인수로는 프로퍼티의 키와 값을 인수로 받는 함수를 지정할 수 있습니다. 이 함수는 환원 될 객체의 프로퍼티 값을 반롼해야만 합니다.
+
+```javascript
+JSON.parse('{}')        
+//{}
+
+JSON.parse('3.14')      
+//3.14
+
+JSON.parse('"abc"')     
+//"abc"
+
+JSON.parse('true')      
+//true
+
+JSON.parse('[2, 4, null]')      
+//[2, 4, null]
+
+JSON.parse('{"x":1, "y":2}')        
+//{x:1, y:2}
+
+var o = {name: "Tom", age:17, marriage:false, data: [2, 5, null]};
+var s = JSON.stringify(o);
+// '{"name":"Tom", "age":17, "marriage":false, "data":[2, 5, null]}'
+var p =JSON.parse(s);
+// {name: "Tom", age: 17, marriage: false, data:[2, 5, null]}
+```
