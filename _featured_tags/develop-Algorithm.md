@@ -1,6 +1,6 @@
 ---
 layout: tag-blog
-title: Alogirithm
+title: Algorithm
 slug: algorithm
 category: develop
 menu: false
