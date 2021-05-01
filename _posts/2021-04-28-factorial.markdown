@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Algorithem] factorial 0갯수 세는 법"
+title:  "[Algorithm] factorial 0갯수 세는 법"
 subtitle:   "factorial"
 categories: develop
 tags: algorithm

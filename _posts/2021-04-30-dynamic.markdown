@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Algorithem] 백준 1463번 1로 만들기(파이썬)"
+title:  "[Algorithm] 백준 1463번 1로 만들기(파이썬)"
 subtitle:   "dynamic programming"
 categories: develop
 tags: algorithm
