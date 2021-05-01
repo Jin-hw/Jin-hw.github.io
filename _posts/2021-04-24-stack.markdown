@@ -3,7 +3,7 @@ layout: post
 title:  "[Algorithem] Stack 알고리즘"
 subtitle:   "javascript"
 categories: develop
-tags: algorithem
+tags: algorithm
 comments: true
 ---
 

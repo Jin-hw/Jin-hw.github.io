@@ -3,7 +3,7 @@ layout: post
 title:  "[Algorithem] factorial 0갯수 세는 법"
 subtitle:   "factorial"
 categories: develop
-tags: algorithem
+tags: algorithm
 comments: true
 ---
 https://tmdrl5779.tistory.com/95
